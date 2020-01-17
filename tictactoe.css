@@ -5,3 +5,34 @@ td{
   border: 5px solid black;
   font-size: 100px;
 }
+
+ul{
+  list-style: none;
+}
+
+
+.scoreBrd{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 80%;
+  height: 150px;
+  margin: auto;
+  font-size: 2.0rem;
+}
+
+#playerX{
+  background-color: cyan;
+  width: 25%;
+  height: auto;
+}
+
+#playerO{
+  background-color: cadetblue;
+  width: 25%; 
+  height: auto;
+}
+
+.yourTurn{
+  border: solid rgb(211, 26, 26) 10px;
+}
