@@ -167,3 +167,5 @@ const resetBoard = () => {
 // 3. Reset the number of wins <- DONE
 // 4. Clear the board on alert window dismissal
 // 5. Add players names and display who wins, i.e. "Congrats Emily, you won with 0s!"
+
+//update to push again
