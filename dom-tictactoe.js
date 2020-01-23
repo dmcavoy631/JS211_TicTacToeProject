@@ -19,10 +19,6 @@ let board = [
 
 // is called when a square is clicked. "this" = element here
 const handleClick = (element) => {
-  // check to see if the square clicked has anything in it, if not continue
-  // this prevents an X being changed to an O
-  document.getElementById("player" + currentMarker).classList.toggle("yourTurn");
-  if( )
   if(!document.getElementById(element.id).innerHTML){
     addMarker(element.id)
     updateBoard(element.id)
@@ -32,16 +28,14 @@ const handleClick = (element) => {
 
 const addMarker = (id) => {
   console.log(`We'll place a mark on square: ${id}`)
-  // @TODO, Mix & Match. 
-  // You will need the following pieces:
-
   document.getElementById(id).innerHTML = currentMarker;
 
-  // Arrange the above pieces into one a single line of code
-  // to add an X or O to the board to the DOM so it can be scene on the screen.
 }
 
-// passes the element's id attribute from HTML to be used
+const toggleCurrentPlayer = () =>{
+  document.getElementById("player" + currentMarker).classList.toggle("yourTurn");
+}
+
 const updateBoard = (id) => {
   // parses the id string into a number then captures the first and last part the newly create number as row & column
   const row = parseInt(id.charAt(0))
@@ -52,7 +46,7 @@ const updateBoard = (id) => {
 
   // @TODO, Your code here: use the above information to change the board variable(array of arrays)
   board[row][column] = currentMarker;
-  // HINT: in your browser open up the dev tools -> console
+
 }
 
 const checkForWin = () => {
@@ -67,22 +61,23 @@ const checkForWin = () => {
 
       winCntX++;
       document.getElementById('scoreX').innerHTML = winCntX;
+      
     }
     //Update Score and innerHTML values
     if(currentMarker == 'O'){
 
       winCntO++;
       document.getElementById('scoreO').innerHTML = winCntO;
+ 
 
-  }
-
-} else {
+    }
+  } else {
   // if no win, change the marker from X to O, or O to X for the next player.
 
     changeMarker()
-  // window.alert(`Player ${currentMarker} Turn!`)
 
-}
+  // window.alert(`Player ${currentMarker} Turn!`)
+  }
 }
 
 const horizontalWin = () => {
@@ -128,23 +123,26 @@ const diagonalWin = () => {
 
 const changeMarker = () => {
   // ternary operator: if it's an X make it an O, if O make it an X
-
+  toggleCurrentPlayer();
   currentMarker = currentMarker === "X" ? "O" : "X";
- 
+  toggleCurrentPlayer();
 }
+
+const resetScore = () =>{
+    // Clearing ScoreBoard
+    winCntX = 0;    
+    winCntO = 0;
+    document.getElementById('scoreX').innerHTML = winCntX
+    document.getElementById('scoreO').innerHTML = winCntO
+    document.getElementById("playerO").classList.remove("yourTurn");
+    document.getElementById("playerX").classList.remove("yourTurn");
+}
+
 
 const resetBoard = () => {
   // sanity check: this tells us the function is being called
   console.log("the board was cleared!")
-
-  // Clearing ScoreBoard
-  winCntX = 0;    
-  winCntO = 0;
-  document.getElementById('scoreX').innerHTML = winCntX
-  document.getElementById('scoreO').innerHTML = winCntO
-  document.getElementById("playerO").classList.remove("yourTurn");
-  document.getElementById("playerX").classList.remove("yourTurn");
-
+  toggleCurrentPlayer();
 
   // collects all of the "td"s into an HTML Collection: https://www.w3schools.com/jsref/dom_obj_htmlcollection.asp  
   const squares = document.getElementsByTagName("TD")
@@ -165,7 +163,7 @@ const resetBoard = () => {
 // **BONUSES**
 
 // 1. Display the current player's turn
-// 2. Count number of wins for each player and display them
-// 3. Reset the number of wins
+// 2. Count number of wins for each player and display them <- DONE
+// 3. Reset the number of wins <- DONE
 // 4. Clear the board on alert window dismissal
 // 5. Add players names and display who wins, i.e. "Congrats Emily, you won with 0s!"
